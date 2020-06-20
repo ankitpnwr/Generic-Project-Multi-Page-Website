@@ -1,0 +1,288 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<script src="https://kit.fontawesome.com/0cb5297f56.js" crossorigin="anonymous"></script> 
+		<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;700S&display=swap"rel="stylesheet">
+		<link rel="stylesheet" href="style.css">
+		<link rel="stylesheet" href="menu.css">
+		<title>
+			Quick Quiz
+		</title>
+		<style type="text/css">
+			/*<![CDATA[*/
+			html,body
+			{
+				font-family: Verdana;
+			}
+
+			.wrapper
+			{
+				display: flex;
+				max-width: 1200px;
+				margin: 0 auto;
+				height: 80vh;
+				justify-content: center;
+				align-items: center;
+			}
+
+			div#test
+			{
+				text-align: left;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				border: 2px solid #3c86c4;
+				padding: 10px 34px 34px 34px;
+				background-color: var(--primary-color);
+				color: #fff;
+				width: 75%;
+				box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+				height: 75%;
+				
+			}
+
+			p#question
+			{
+				background-color: #fff;
+				color: #333;
+				border-radius: 4px;
+				border: 1px solid #ccc;
+				padding: 12px;
+				font-size: 15px;
+				font-weight: 700;
+				letter-spacing: 1px;
+			}
+
+			.answer
+			{
+				margin: 12px;
+				cursor: pointer;
+			}
+
+			.status h2
+			{
+				display: inline;
+				background-color: #eee;
+				padding: 8px;
+			}
+
+			.status-container h2
+			{
+				padding: 20px;
+				background-color: #555555;;
+				text-align: center;
+				border-radius: 12px;
+				border: 1px solid #000;
+				color: #fff;
+			}
+
+			#p
+			{
+				display: none;
+			}
+
+			.btn
+			{
+				background-color: coral;
+				border: none;
+				color: white;
+				padding: 15px 32px;
+				text-align: center;
+				text-decoration: none;
+				display: inline-block;
+				font-size: 16px;
+				border-radius: 4px;
+				transition-duration: 0.4s;
+			}
+
+			.btn:hover
+			{
+				background-color: rgba(255, 127, 80, 0.726);
+			}
+
+			#finish-text
+			{
+				text-align: center;
+				color: #fff;
+				background-color: #555;
+				padding: 16px;
+				border: 1px solid #000;
+				border-radius: 12px;
+				font-size: 24px;
+			}
+
+			/*]]>*/
+		</style>
+	</head>
+
+	<body>
+		<header id="main-header">
+			<div class="menu-wrap">
+				<input type="checkbox" class="toggler">
+				<!-- Inside hamburger This empty div is for lines -->
+				<div class="hamburger"><div></div></div> 
+				<div class="menu">
+					<div>
+						<div>
+							<ul>
+								<li><a href="index.html">Home</a></li>
+								<li><a href="quiz.html">Quick Quiz</a></li>
+								<li><a href="gallery.html">Photo Gallery</a></li>
+	                            <li><a href="api.html">Search Gif</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="container">
+					<h1><i class="fab fa-instagram"></i><span class="text-primary">Quick Quiz</span></h1>
+			</div>
+			<div class="lines">
+				<div class="line div1"></div>
+				<div class="line div2"></div>
+				<div class="line div3"></div>
+				<div class="line div4"></div>
+				<div class="line div5"></div>
+				<div class="line div6"></div>
+				<div class="line div7"></div>
+				<div class="line div8"></div>
+				<div class="line div9"></div>
+			</div>
+		</header>
+
+		<div class="wrapper">
+				<div id="test">
+					<div class="status-container">
+						<h2 id="status">
+						
+						</h2>
+					</div>
+
+					<p id="question">
+					</p>
+
+					<div id="answers">
+					</div>
+				</div>
+		</div>
+		<script type="text/javascript">
+			//<![CDATA[
+			var qPos = 0;
+			var test, textStatus;
+			var correct = 0;
+			var q1,q2,q3;
+
+			var questions =[
+				["In which year Mike and Kevin lanched the app", "2010", "2009" , "2011" ,"A"],
+				["Instagram is a  ", "Social Media App", "Website", "Browser", "A"],
+				["Who was the creater of instagram.", "Mike" ,"Kevin" ,"Both" ,"C"],
+				["What is used to view web pages.", "Internet" ,"Web Browser" ,"Page Browser" ,"B"],
+				["Instagram is made by which language", "Python" ,"Javascript" ,"React-Native" ,"A"],
+				["Who Owned Instagram", "Fackbook" ,"Google" ,"Twitter" ,"A"],
+				["In which year Instagram is sold", "2009" ,"2012" ,"2014" ,"B"],
+				["Who is the current CEO of Instagram.", "Kevin Systrom" ,"Mike Krieger" ,"Mark Zuckerberg" ,"C"],
+				["In which year Instagram first reach 1 million active user. ", "2011" ,"2010" ,"2009" ,"A"],
+				["What was Instagram initial name", "Systrom's Love" ,"Burbn" ,"Krieger" ,"B"]
+			];
+			//]]>
+		</script>
+		<script type="text/javascript">
+			//<![CDATA[
+
+			function renderQuestion()
+			{
+				test = document.getElementById("test");
+				textStatus = document.getElementById("status")
+				var question = document.getElementById("question");
+				var answers = document.getElementById("answers");
+
+				if(qPos >= questions.length)
+				{
+					qPos = questions.length - 1;
+					test.innerHTML = "<p id='finish-text'>You got " + correct + " out of  " + questions.length + " questions correct<\/p><br />";
+					test.innerHTML += "<button class=\"btn\" onclick=\"reloadQuiz();\">Start Quiz<\/button>";
+				}
+
+				textStatus.innerHTML = "<img id='p' src=\"images\\question.png\"> Question " + (qPos+1) + " of " + questions.length;
+				question.innerText = questions[qPos][0];
+
+				//Get questions
+				q1 = questions[qPos][1]; // Question A
+				q2 = questions[qPos][2]; // Question B
+				q3 = questions[qPos][3]; // Question C
+
+				answers.innerHTML = "";
+				answers.innerHTML += "<input class=\"answer\" type=\"radio\" name=\"answers\" value=\"A\" checked> " + q1 + "<\/input><br />";
+				answers.innerHTML += "<input class=\"answer\" type=\"radio\" name=\"answers\" value=\"B\"> " + q2 + "<\/input><br />";
+				answers.innerHTML += "<input class=\"answer\" type=\"radio\" name=\"answers\" value=\"C\"> " + q3 + "<\/input><br />";
+				answers.innerHTML += "<br />";
+				answers.innerHTML += "<button class=\"btn\" onclick=\"checkAnswer();\">Submit Answer<\/button>";
+				//INC questions.
+				qPos+=1;
+			}
+
+			function checkAnswer()
+			{
+				var choices = document.getElementsByName("answers");
+				var ans;
+				var I = 0;
+
+				//Check for correct question.
+				for(I = 0;I < choices.length;I++)
+				{
+					if(choices[I].checked == true)
+					{
+						ans = choices[I].value;
+					}
+				}
+
+				if(questions[qPos-1][4] == ans)
+				{
+					correct+=1;
+				}
+
+				//Show next questions
+				renderQuestion();
+			}
+
+			//]]>
+		</script>
+		<script type="text/javascript">
+			//<![CDATA[
+
+			qPos = 0;
+			test = "";
+			textStatus = "";
+			correct = 0;
+			q1 = "";
+			q2 = "";
+			q3 = "";
+			//Render quiz
+			renderQuestion();
+
+			function reloadQuiz()
+			{
+				location.reload();
+			}
+
+			//]]>
+		</script>
+		<footer id="main-footer">
+			<div class="lines">
+				<div class="line div1"></div>
+				<div class="line div2"></div>
+				<div class="line div3"></div>
+				<div class="line div4"></div>
+				<div class="line div5"></div>
+				<div class="line div6"></div>
+				<div class="line div7"></div>
+				<div class="line div8"></div>
+				<div class="line div9"></div>
+			</div>
+		</footer>
+	</body>
+</html>

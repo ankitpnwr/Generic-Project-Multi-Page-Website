@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/0cb5297f56.js" crossorigin="anonymous"></script> 
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;700S&display=swap"rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="menu.css">
+  <title>Giphy App</title>
+</head>
+<body>
+    <header id="main-header">
+        <div class="menu-wrap">
+            <input type="checkbox" class="toggler">
+            <!-- Inside hamburger This empty div is for lines -->
+            <div class="hamburger"><div></div></div> 
+            <div class="menu">
+                <div>
+                    <div>
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="quiz.html">Quick Quiz</a></li>
+                            <li><a href="gallery.html">Image Gallery</a></li>
+                            <li><a href="api.html">Search Gif</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+                <h1><i class="fab fa-instagram"></i><span class="text-primary">Search Gif</span></h1>
+        </div>
+        <div class="lines">
+            <div class="line div1"></div>
+            <div class="line div2"></div>
+            <div class="line div3"></div>
+            <div class="line div4"></div>
+            <div class="line div5"></div>
+            <div class="line div6"></div>
+            <div class="line div7"></div>
+            <div class="line div8"></div>
+            <div class="line div9"></div>
+        </div>
+    </header>
+    
+
+    <section id="main-giphy-app">
+        <div class="container center">
+            <h1> <span class="text-primary">Let's Search Some Gifs!</span></h1>
+            <div class="info">
+              <p> Search below to the wonderful world of Gifs! </p>
+                <form class="gif-form">
+                  <input type="text" id="form-value" class="search-input-rounded">
+                  <button type="submit" class="search_button btn"> Search </button>
+                  <input type="reset" id="reset_button" value="Reset" class="btn">
+                </form>
+                <div class="rando_facts animated bounceIn">
+                   <img id="here_is_gif" src=""/> 
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="main-footer">
+        <div class="lines">
+            <div class="line div1"></div>
+            <div class="line div2"></div>
+            <div class="line div3"></div>
+            <div class="line div4"></div>
+            <div class="line div5"></div>
+            <div class="line div6"></div>
+            <div class="line div7"></div>
+            <div class="line div8"></div>
+            <div class="line div9"></div>
+        </div>
+    </footer>
+
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <script type="text/javascript">
+
+    $( document ).ready(function(){
+
+      $('.search_button').on('click', function(){
+
+        var userInput = $('#form-value').val().trim();
+        
+        userInput = userInput.replace(/ /g, "+");
+
+        var queryURL = 'http://api.giphy.com/v1/gifs/search?q=' + userInput + '&api_key=dc6zaTOxFJmzC';
+
+        $.ajax({url: queryURL, method: 'GET'}).done(function(response){
+
+          console.log(response.data);
+
+          var giphyURL = response.data[0].images.fixed_height.url;
+          console.log(giphyURL)
+
+          $('#here_is_gif').attr('src', giphyURL);
+
+        });
+
+        $('#reset_button').on('click', function(){
+          $('#here_is_gif').attr("src",'');
+        })
+
+        return false;
+      })
+      
+
+    });
+
+  </script>
+
+</body>
+</html>
